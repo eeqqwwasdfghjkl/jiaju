@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        body {
+            height: 100%;
+            background-color: rgb(40, 240, 245);
+            position: relative;
+        }
+
+        .contenter {
+            width: 200px;
+            height: 160px;
+            position: relative;
+            margin: 200px auto;
+            animation: move 2s  infinite ;
+        }
+
+        .contenter::before {
+            content: "";
+            width: 100px;
+            height: 160px;
+            border-radius: 50px 50px 0 0;
+            position: absolute;
+            background-color: red;
+            transform: rotate(45deg);
+            transform-origin: bottom right;
+            left: 0;
+
+        }
+
+        .contenter::after {
+            content: "";
+            width: 100px;
+            height: 160px;
+            border-radius: 50px 50px 0 0;
+            position: absolute;
+            background-color: red;
+            transform: rotate(-45deg);
+            transform-origin: bottom left;
+            right: 0;
+
+        }
+
+        span {
+            position: absolute;
+            top: 40px;
+            left: 47%;
+        }
+
+        @keyframes move {
+            0% {
+                transform: scale(1.1);
+            }
+
+            25% {
+                transform: scale(1.2);
+            }
+
+            50% {
+                transform: scale(1.3);
+            }
+
+            75% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1.1);
+            }
+
+        }
+
+        span {
+            font-size: 25px;
+            text-shadow: 5px 2px 10px #000;
+        }
+        #time{
+            font-size: 20px;
+            color: white;
+            position: absolute;
+            top:300px;
+            left: 37%;
+            text-shadow: 5px 2px 10px #000;
+        }
+    </style>
+</head>
+
+<body id="bg">
+    <div class="contenter"></div>
+    <span id="color">love</span>
+    <p id="time"></p>
+    <script>
+        var arr = ["#FFB6C1", "#FFC0CB", "#8A2BE2", "#00008B", "#6495ED", "#B22222", "#696969", "#696969", "pink", "#FAF0E6"];
+        var bg = document.getElementById("bg");
+        var color = document.getElementById("color");
+        var time = document.getElementById("time");
+        var contenter = document.getElementsByClassName("contenter");
+        setInterval(function () {
+            var radom = Math.floor(arr.length * Math.random());
+            bg.style.backgroundColor = arr[radom];
+        }, 500);
+
+        setInterval(function () {
+            var radom = Math.floor(arr.length * Math.random());
+            color.style.color = arr[radom];
+        }, 750);
+        setInterval(function () {
+            var data = new Date();
+            time.innerText = data;
+        }, 1000)
+
+    </script>
+</body>
+
+</html>
