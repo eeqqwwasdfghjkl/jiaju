@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div.contianer {
+            width: 500px;
+            height: 300px;
+            margin: 100px auto;
+            position: relative;
+        }
+
+
+
+        ul li.item {
+            list-style: none;
+            width: 500px;
+            height: 300px;
+            font-size: 30px;
+            position: absolute;
+        }
+
+        ul li:nth-child(1) {
+            background: rgb(207, 207, 136);
+        }
+
+        ul li:nth-child(2) {
+            background: #FF9999;
+        }
+
+        ul li:nth-child(3) {
+            background: #66FFCC;
+        }
+
+        ul li:nth-child(4) {
+            background: #9999CC;
+        }
+
+        ul li:nth-child(5) {
+            background: #0066FF;
+        }
+
+        a {
+            display: block;
+            width: 40px;
+            height: 70px;
+        }
+
+        #butLeft {
+            position: absolute;
+            background: url(./icon-slides.png) no-repeat -84px 0px;
+            z-index: 50;
+            top: 50%;
+            left: 0;
+            margin-top: -35px;
+        }
+
+        #butLeft:hover {
+            background: url(./icon-slides.png) no-repeat 0px 0px;
+        }
+
+        #butRight {
+            position: absolute;
+            background: url(./icon-slides.png) no-repeat -125px 0px;
+            z-index: 50;
+            top: 50%;
+            right: 0;
+            margin-top: -35px;
+        }
+
+        #butRight:hover {
+            background: url(./icon-slides.png) no-repeat -43px 0px;
+        }
+
+        .dian {
+            width: 170px;
+            height: 20px;
+            position: absolute;
+            z-index: 50;
+            bottom: 20px;
+            left: 50%;
+            margin-left: -75px;
+        }
+
+        .dian a {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid white;
+            float: left;
+            margin-left: 20px;
+
+        }
+
+        .dian a:nth-child(1) {
+            margin-left: 0px;
+        }
+        .item{
+            opacity: 0;
+            transition: all 2s ease;
+        }
+        .item.active {
+            z-index: 10;
+            opacity: 1;
+         
+        }
+
+
+        .point.active {
+            box-shadow: 0px 0px 10px rgb(255, 0, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contianer">
+        <ul>
+            <li class="item active">0</li>
+            <li class="item">1</li>
+            <li class="item">2</li>
+            <li class="item">3</li>
+            <li class="item">4</li>
+        </ul>
+        <a id="butLeft"></a>
+        <a id="butRight"></a>
+        <div class="dian">
+            <a class="point active"></a>
+            <a class="point"></a>
+            <a class="point"></a>
+            <a class="point"></a>
+            <a class="point"></a>
+        </div>
+    </div>
+    <script>
+
+        let butLeft = document.getElementById("butLeft");
+        let butRight = document.getElementById("butRight");
+        let list = document.getElementsByClassName("item");
+        let point = document.getElementsByClassName("point");
+        //设置计数器 控制
+        let index = 0;
+        //解决点图调转
+        let goIndex = 0;
+        //执行图片和点的函数
+        function go() {
+            for (var i = 0; i < list.length; i++) {
+                list[i].className = "item";
+                point[i].className = "point";
+            };
+            list[index].className = "item active";
+            point[index].className = "point active";
+        };
+
+        //向左
+        butLeft.onclick = function () {
+            if (index <= 0) {
+                index = 5;
+            }
+            index--;
+            go();
+        };
+        //向右
+        butRight.onclick = function () {
+            if (index >= 4) {
+                index = -1;
+            }
+            index++;
+            go();
+        };
+
+        //点击点对应图片
+        for (var j = 0; j < point.length; j++) {
+            //用一个索引记录点击的位置
+            let pointIndex = this.j;
+            point[j].onclick = function () {
+                //把当前的赋值给index
+                index = pointIndex;
+                go();
+                goIndex = 0;//点击归零重新计时
+            };
+        }
+        //图片自动滚动
+
+        setInterval(function () {
+            goIndex++;
+            if (goIndex >= 20) {
+                index++;
+                go();
+                console.log(goIndex);
+                if (index >= 4) {
+                    index = -1;
+                };
+               
+                goIndex = 0;
+            }
+
+        }, 100)
+
+    </script>
+</body>
+
+</html>
